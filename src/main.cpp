@@ -12,6 +12,7 @@
 #include <IO/System/CommandParser.hpp>
 #include <IO/System/EventLog.hpp>
 #include <IO/System/PrintDebug.hpp>
+#include <Core/Game.hpp>
 #include <fstream>
 #include <iostream>
 
@@ -33,18 +34,21 @@ int main(int argc, char** argv)
 	// Code for example...
 
 	std::cout << "Commands:\n";
+	core::Game game;
 	io::CommandParser parser;
-	parser.add<io::CreateMap>([](auto command) { printDebug(std::cout, command); })
-		.add<io::SpawnSwordsman>([](auto command) { printDebug(std::cout, command); })
-		.add<io::SpawnHunter>([](auto command) { printDebug(std::cout, command); })
-		.add<io::March>([](auto command) { printDebug(std::cout, command); });
+    
+    // Initialize commands
+	parser.add<io::CreateMap>([&game](auto command) { game.createMap(command); })
+		.add<io::SpawnSwordsman>([&game](auto command) { game.spawnSwordsman(command); })
+		.add<io::SpawnHunter>([&game](auto command) { game.spawnHunter(command); })
+		.add<io::March>([&game](auto command) { game.march(command); });
 
 	parser.parse(file);
 
 	std::cout << "\n\nEvents:\n";
 
 	EventLog eventLog;
-
+    
 	eventLog.log(1, io::MapCreated{10, 10});
 	eventLog.log(1, io::UnitSpawned{1, "Swordsman", 0, 0});
 	eventLog.log(1, io::UnitSpawned{2, "Hunter", 9, 0});
