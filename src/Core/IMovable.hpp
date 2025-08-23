@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/Position.hpp"
+#include <optional>
 
 namespace sw::core
 {
@@ -10,7 +11,7 @@ namespace sw::core
         virtual void move(int dx, int dy) = 0;
         virtual ~IMovable() = default;
     protected:
-        Position objective;
+        std::optional<Position> objective;
     };
 
 } // namespace sw::core
