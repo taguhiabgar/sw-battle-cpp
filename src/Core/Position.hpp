@@ -1,11 +1,13 @@
 #pragma once
 
+#include <cstdint>
+
 namespace sw::core
 {
 
     struct Position {
-        int x;
-        int y;
+        uint32_t x;
+        uint32_t y;
     };
 
 } // namespace sw::core
