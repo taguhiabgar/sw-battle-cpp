@@ -17,7 +17,7 @@ namespace sw::feature {
 
         void spawn() override;
         void makeMove() override;
-        void receiveDamage(int damage) override;
+        void receiveDamage(int damage, const Unit* attacker) override;
         void move(int dx, int dy) override;
     };
 

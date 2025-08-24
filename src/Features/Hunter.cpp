@@ -10,7 +10,7 @@ namespace sw::feature {
 
     }
 
-    void Hunter::receiveDamage(int damage) {
+    void Hunter::receiveDamage(int damage, const Unit* attacker) {
 
     }
 

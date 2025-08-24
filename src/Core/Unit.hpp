@@ -13,7 +13,7 @@ public:
     
     virtual void spawn() = 0;
     virtual void makeMove() = 0;
-    virtual void receiveDamage(int damage) = 0;
+    virtual void receiveDamage(int damage, const Unit* attacker) = 0;
     
     inline bool isOnBoard() { return _isOnBoard; }
     inline bool isAlive() { return _isAlive; }
