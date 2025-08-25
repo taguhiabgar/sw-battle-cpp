@@ -17,8 +17,8 @@ void Game::start()
 {
     // while (true)
     {
-        for (auto& unit : units) {
-            unit->makeMove();
+        for (auto& unit : _units) {
+            unit->makeMove(_board);
         }
     }
     

@@ -8,6 +8,7 @@ namespace sw::feature {
 
     using sw::core::Unit;
     using sw::core::Stats;
+    using sw::core::Board;
     using sw::core::Position;
     using sw::core::IMovable;
 
@@ -24,7 +25,7 @@ namespace sw::feature {
             }
 
         void spawn() override;
-        void makeMove() override;
+        void makeMove(Board& board) override;
         void receiveDamage(int damage, const Unit* attacker) override;
         void move(int dx, int dy) override;
     };

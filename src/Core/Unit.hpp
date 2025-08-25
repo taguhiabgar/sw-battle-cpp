@@ -2,6 +2,7 @@
 
 #include "Core/Stats.hpp"
 #include "Core/Position.hpp"
+#include "Core/Board.hpp"
 
 namespace sw::core {
 
@@ -12,7 +13,7 @@ public:
     virtual ~Unit() = default;
     
     virtual void spawn() = 0;
-    virtual void makeMove() = 0;
+    virtual void makeMove(Board& board) = 0;
     virtual void receiveDamage(int damage, const Unit* attacker) = 0;
     
     inline bool isOnBoard() { return _isOnBoard; }

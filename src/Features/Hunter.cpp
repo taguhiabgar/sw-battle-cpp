@@ -7,7 +7,7 @@ namespace sw::feature {
     }
 
     
-    void Hunter::makeMove() {
+    void Hunter::makeMove(Board& board) {
         std::cout << "--- hunter " << _id << " - make move" << std::endl;
     }
 

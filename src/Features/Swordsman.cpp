@@ -7,7 +7,7 @@ namespace sw::feature {
     }
 
     
-    void Swordsman::makeMove() {
+    void Swordsman::makeMove(Board& board) {
         std::cout << "--- swordsman " << _id << " - make move" << std::endl;
     }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Unit.hpp"
+#include "Board.hpp"
 #include <vector>
 #include <memory>
 
@@ -23,12 +24,11 @@ namespace sw::core
         void update();
         void end();
 
-
         template<typename UnitType, typename CommandType>
         void spawnUnit(const CommandType& command)
         {
             std::unique_ptr<Unit> unit = std::make_unique<UnitType>(command);
-            units.push_back(std::move(unit));
+            _units.push_back(std::move(unit));
             // log UNIT_SPAWNED here - notify all observers?
         }
         
@@ -41,7 +41,8 @@ namespace sw::core
         void spawnHunter(io::SpawnHunter& command);
 
     private:
-        std::vector<std::unique_ptr<Unit>> units;
+        std::vector<std::unique_ptr<Unit>> _units{};
+        Board _board{};
     };
 
 } // namespace sw::core
