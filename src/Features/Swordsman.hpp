@@ -2,6 +2,7 @@
 
 #include "Core/Unit.hpp"
 #include "Core/IMovable.hpp"
+#include "IO/Commands/SpawnSwordsman.hpp"
 
 namespace sw::feature {
 
@@ -12,8 +13,15 @@ namespace sw::feature {
 
     class Swordsman : public Unit, public IMovable {
         public:
-        Swordsman(int id, int health, int strength, Position position)
-            : Unit(id, Stats{ .health = health, .strength = strength }, position, true) {}
+        Swordsman(const sw::io::SpawnSwordsman& command)
+            : Unit(
+                command.unitId, 
+                Stats{ .health = command.hp, .strength = command.strength}, 
+                Position{command.x, command.y},
+                true) 
+            {
+
+            }
 
         void spawn() override;
         void makeMove() override;

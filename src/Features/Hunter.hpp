@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IO/Commands/SpawnHunter.hpp"
 #include "Core/Unit.hpp"
 #include "Core/IMovable.hpp"
 
@@ -11,8 +12,15 @@ namespace sw::feature {
 
     class Hunter : public Unit, public IMovable {
     public:
-        Hunter(int id, int health, int agility, int strength, int range, Position position)
-        : Unit(id, Stats{.health = health, .agility = agility, .strength = strength, .range = range}, position, true) {}
+        Hunter(const sw::io::SpawnHunter& command) : 
+            Unit(
+                command.unitId, 
+                Stats{.health = command.hp, .agility = command.agility, .strength = command.strength, .range = command.range}, 
+                Position{command.x, command.y}, 
+                true)
+            {
+
+            }
 
         void spawn() override;
         void makeMove() override;
