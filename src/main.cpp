@@ -46,6 +46,7 @@ int main(int argc, char** argv)
 	parser.parse(file);
 
 	std::cout << "\n\nEvents:\n";
+	game.start();
 
 	EventLog eventLog;
     

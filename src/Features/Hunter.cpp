@@ -1,13 +1,14 @@
 #include "Features/Hunter.hpp"
-
+#include <iostream>
 namespace sw::feature {
 
     void Hunter::spawn() {
 
     }
 
+    
     void Hunter::makeMove() {
-
+        std::cout << "--- hunter " << _id << " - make move" << std::endl;
     }
 
     void Hunter::receiveDamage(int damage, const Unit* attacker) {
