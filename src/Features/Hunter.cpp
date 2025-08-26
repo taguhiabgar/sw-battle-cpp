@@ -1,5 +1,7 @@
 #include "Features/Hunter.hpp"
+#include "Core/Board.hpp"
 #include <iostream>
+
 namespace sw::feature {
 
     void Hunter::spawn() {
@@ -11,11 +13,11 @@ namespace sw::feature {
         std::cout << "--- hunter " << _id << " - make move" << std::endl;
     }
 
-    void Hunter::receiveDamage(int damage, const Unit* attacker) {
+    void Hunter::receiveDamage(uint32_t damage, const Unit* attacker) {
 
     }
 
-    void Hunter::move(int dx, int dy) {
+    void Hunter::move(uint32_t dx, uint32_t dy) {
         
     }
 

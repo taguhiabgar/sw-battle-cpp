@@ -20,7 +20,7 @@ public:
     inline bool isAlive() { return _isAlive; }
     
 protected:
-    int _id;
+    uint32_t _id;
     Stats _stats;
     Position _position;
     bool _isOnBoard;

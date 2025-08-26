@@ -3,6 +3,7 @@
 #include "Core/Unit.hpp"
 #include "Core/IMovable.hpp"
 #include "IO/Commands/SpawnSwordsman.hpp"
+#include <cstdint>
 
 namespace sw::feature {
 
@@ -26,8 +27,8 @@ namespace sw::feature {
 
         void spawn() override;
         void makeMove(Board& board) override;
-        void receiveDamage(int damage, const Unit* attacker) override;
-        void move(int dx, int dy) override;
+        void receiveDamage(uint32_t damage, const Unit* attacker) override;
+        void move(uint32_t dx, uint32_t dy) override;
     };
 
 } // namespace sw::feature

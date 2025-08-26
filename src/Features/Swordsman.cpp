@@ -1,5 +1,7 @@
 #include "Features/Swordsman.hpp"
+#include "Core/Board.hpp"
 #include <iostream>
+
 namespace sw::feature {
 
     void Swordsman::spawn() {
@@ -11,11 +13,11 @@ namespace sw::feature {
         std::cout << "--- swordsman " << _id << " - make move" << std::endl;
     }
 
-    void Swordsman::receiveDamage(int damage, const Unit* attacker) {
+    void Swordsman::receiveDamage(uint32_t damage, const Unit* attacker) {
 
     }
     
-    void Swordsman::move(int dx, int dy) {
+    void Swordsman::move(uint32_t dx, uint32_t dy) {
         
     }
 
