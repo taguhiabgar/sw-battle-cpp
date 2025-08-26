@@ -31,13 +31,13 @@ namespace sw::core {
                 throw std::runtime_error(message);
             }
             ground[position.x][position.y] = id;
-            units[id] = std::move(u);
+            units[id] = UnitData{std::move(u), position};
             return id;
         }
 
         Unit* getUnit(uint32_t id) {
             if (auto it = units.find(id); it != units.end()) {
-                return it->second.get();
+                return it->second.unit.get();
             }
             return nullptr;
         }
@@ -65,11 +65,16 @@ namespace sw::core {
         static constexpr uint32_t InvalidId {0};
 
     private:
+        struct UnitData {
+            std::unique_ptr<Unit> unit;
+            Position pos;
+        };
+
         uint32_t _width{};
 		uint32_t _height{};
 
         std::vector<std::vector<uint32_t>> ground;
-        std::unordered_map<uint32_t, std::unique_ptr<Unit>> units;
+        std::unordered_map<uint32_t, UnitData> units;
     };
     
 } // namespace sw::core

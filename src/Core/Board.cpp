@@ -83,6 +83,10 @@ namespace sw::core {
     void Board::removeUnit(uint32_t id) {
         auto it = units.find(id);
         if (it != units.end()) {
+            Position position = it->second.pos;
+            if (isValidPosition(position)) {
+                ground[position.x][position.y] = InvalidId;
+            }
             units.erase(it);
         }
     }
@@ -91,6 +95,11 @@ namespace sw::core {
         if (!isValidPosition(from) || !isValidPosition(to)) {
             return;
         }
+        auto it = units.find(id);
+        if (it == units.end()) {
+            return;
+        }
+        it->second.pos = to;
         std::swap(ground[from.x][from.y], ground[to.x][to.y]);
     }
 
