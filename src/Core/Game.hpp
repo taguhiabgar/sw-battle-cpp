@@ -44,7 +44,7 @@ namespace sw::core
 
     private:
         std::vector<uint32_t> _moveOrder{};
-        Board _board{};
+        std::unique_ptr<Board> _board;
     };
 
 } // namespace sw::core

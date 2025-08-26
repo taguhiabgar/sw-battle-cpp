@@ -15,12 +15,17 @@ namespace sw::core {
 
 void Game::start()
 {
+    if (!_board.get()) {
+        throw std::runtime_error("Error: Board is null");
+    }
+    uint32_t moveNumber {0};
     // while (true)
     {
+        moveNumber++;
         for (uint32_t& id : _moveOrder) {
-            Unit* unit = _board.getUnit(id);
+            Unit* unit = _board->getUnit(id);
             if (unit) {
-                unit->makeMove(_board);
+                unit->makeMove(*_board.get());
             }
         }
     }
@@ -36,8 +41,10 @@ void Game::end()
 {
     
 }
+
 void Game::createMap(io::CreateMap& command)
 {
+    _board = std::make_unique<Board>(command);
     printDebug(std::cout, command);
 }
 
