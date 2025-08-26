@@ -4,6 +4,7 @@
 #include "Board.hpp"
 #include <vector>
 #include <memory>
+#include <cstdint>
 
 namespace sw::io {
     class CreateMap;
@@ -28,7 +29,8 @@ namespace sw::core
         void spawnUnit(const CommandType& command)
         {
             std::unique_ptr<Unit> unit = std::make_unique<UnitType>(command);
-            _units.push_back(std::move(unit));
+            uint32_t id = _board.storeUnit(std::move(unit));
+            _moveOrder.push_back(id);
             // log UNIT_SPAWNED here - notify all observers?
         }
         
@@ -41,7 +43,7 @@ namespace sw::core
         void spawnHunter(io::SpawnHunter& command);
 
     private:
-        std::vector<std::unique_ptr<Unit>> _units{};
+        std::vector<uint32_t> _moveOrder{};
         Board _board{};
     };
 

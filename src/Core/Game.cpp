@@ -17,8 +17,11 @@ void Game::start()
 {
     // while (true)
     {
-        for (auto& unit : _units) {
-            unit->makeMove(_board);
+        for (uint32_t& id : _moveOrder) {
+            Unit* unit = _board.getUnit(id);
+            if (unit) {
+                unit->makeMove(_board);
+            }
         }
     }
     
