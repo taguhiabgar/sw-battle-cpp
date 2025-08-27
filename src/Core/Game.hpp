@@ -2,6 +2,7 @@
 
 #include "Unit.hpp"
 #include "Board.hpp"
+#include "IO/System/EventLog.hpp"
 #include <vector>
 #include <memory>
 #include <cstdint>
@@ -46,6 +47,8 @@ namespace sw::core
     private:
         std::vector<uint32_t> _moveOrder{};
         std::unique_ptr<Board> _board;
+        EventLog _eventLog;
+        uint64_t _moveNumber {0};
     };
 
 } // namespace sw::core
