@@ -32,7 +32,6 @@ namespace sw::core
             Position position { command.x, command.y };
             uint32_t id = _board->storeUnit(std::move(unit), position);
             _moveOrder.push_back(id);
-            // log UNIT_SPAWNED here - notify all observers?
         }
         
         void createMap(io::CreateMap& command);
