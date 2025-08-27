@@ -13,8 +13,7 @@
 
 namespace sw::core {
 
-    class Board
-    {
+    class Board {
     public:
         Board(io::CreateMap command)
             : _width(command.width), _height(command.height), 

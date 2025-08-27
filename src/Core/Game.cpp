@@ -39,7 +39,7 @@ void Game::start()
                     continue;
                 }
 
-                bool canMove = unit->makeMove(_moveNumber, *_board, _eventLog);
+                bool canMove = unit->makeMove(_moveNumber, *_board);
                 movableUnitsCount += canMove;
             }
             ++it;

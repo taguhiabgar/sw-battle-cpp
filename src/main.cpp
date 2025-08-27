@@ -34,7 +34,8 @@ int main(int argc, char** argv)
 	// Code for example...
 
 	std::cout << "Commands:\n";
-	core::Game game;
+	EventLog eventLog;
+	core::Game game(eventLog);
 	io::CommandParser parser;
     
     // Initialize commands
@@ -45,10 +46,11 @@ int main(int argc, char** argv)
 
 	parser.parse(file);
 
+
 	std::cout << "\n\nEvents:\n";
 	game.start();
 
-	EventLog eventLog;
+	
     
 	std::cout << std::endl << "-- MAIN --" << std::endl << std::endl;
 	eventLog.log(1, io::MapCreated{10, 10});

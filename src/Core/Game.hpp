@@ -19,7 +19,7 @@ namespace sw::core
     class Game
     {
     public:
-        Game() = default;
+        Game(EventLog& logger) : _eventLog(logger) {}
         ~Game() = default;
 
         void start();
@@ -28,6 +28,7 @@ namespace sw::core
         void spawnUnit(const CommandType& command)
         {
             std::unique_ptr<Unit> unit = std::make_unique<UnitType>(command);
+            unit->addObserver(&_eventLog);
             Position position { command.x, command.y };
             uint32_t id = _board->storeUnit(std::move(unit), position);
             _moveOrder.push_back(id);

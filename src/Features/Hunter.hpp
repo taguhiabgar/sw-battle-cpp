@@ -24,8 +24,8 @@ namespace sw::feature {
             }
 
         void spawn(/*io::SpawnHunter& command*/) override;
-        bool makeMove(uint32_t moveNumber, Board& board, EventLog& eventLog) override;
-        void receiveDamage(uint32_t damage, const Unit* attacker) override;
+        bool makeMove(uint32_t moveNumber, Board& board) override;
+        void receiveDamage(uint32_t damage, const Unit* attacker, uint32_t moveNumber) override;
 
         static constexpr uint32_t Radius = 1;
     };
