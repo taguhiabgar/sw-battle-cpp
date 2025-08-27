@@ -46,7 +46,7 @@ namespace sw::core
         std::vector<uint32_t> _moveOrder{};
         std::unique_ptr<Board> _board;
         EventLog _eventLog;
-        uint64_t _moveNumber {0};
+        uint64_t _moveNumber {1};
     };
 
 } // namespace sw::core

@@ -33,18 +33,18 @@ void Game::start()
             const uint32_t id = *it;
             Unit* unit = _board->getUnit(id);
             if (unit) {
-                bool canMove = unit->makeMove(_moveNumber, *_board, _eventLog);
-                movableUnitsCount += canMove;
-
                 if (!unit->isAlive()) {
                     _board->removeUnit(id);
                     it = _moveOrder.erase(it);
-                    continue; // skip increment
+                    continue;
                 }
+
+                bool canMove = unit->makeMove(_moveNumber, *_board, _eventLog);
+                movableUnitsCount += canMove;
             }
             ++it;
         }
-    } while (movableUnitsCount != 0 || _moveOrder.empty());
+    } while (movableUnitsCount != 0 && _moveOrder.size() > 1);
     
 }
 
@@ -66,7 +66,7 @@ void Game::spawnHunter(io::SpawnHunter& command)
 {
     printDebug(std::cout, command);
     spawnUnit<sw::feature::Hunter>(command);
-    
+    _eventLog.log(_moveNumber, io::UnitSpawned{command.unitId, "Hunter", command.x, command.y});
 }
 
 void Game::march(io::March& command)

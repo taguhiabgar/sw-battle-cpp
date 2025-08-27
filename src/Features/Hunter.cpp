@@ -16,7 +16,6 @@ namespace sw::feature {
     // - Удар из тени: Если стрелять не может, бьет одного случайного юнита в соседней клетке, нанося ему Strength единиц урона.
     // - Если некого бить, перемещается.
     bool Hunter::makeMove(uint32_t moveNumber, Board& board, EventLog& eventLog) {
-        std::cout << "--- hunter " << _id << " - make move" << std::endl;
         std::optional<Position> position = board.getUnitPosition(_id);
         assert(position.has_value());
         if (Unit* enemy = board.getAnyNeighbor(position.value(), Radius)) {
@@ -42,7 +41,7 @@ namespace sw::feature {
             Position next = nextPositionTowardTarget(position.value(), objective.value());
             if (board.isValidPosition(next)) {
                 board.moveUnit(_id, position.value(), next);
-                eventLog.log(moveNumber, io::UnitMoved{3, 0, 6});
+                eventLog.log(moveNumber, io::UnitMoved{_id, next.x, next.y});
                 return true;
             }
         }
