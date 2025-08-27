@@ -19,16 +19,17 @@ namespace sw::feature {
             : Unit(
                 command.unitId, 
                 Stats{ .health = command.hp, .strength = command.strength}, 
-                Position{command.x, command.y},
                 true) 
             {
 
             }
 
         void spawn() override;
-        void makeMove(Board& board) override;
+        bool makeMove(uint32_t moveNumber, Board& board, EventLog& eventLog) override;
         void receiveDamage(uint32_t damage, const Unit* attacker) override;
-        void move(uint32_t dx, uint32_t dy) override;
+
+        static constexpr uint32_t Radius = 1;
+
     };
 
 } // namespace sw::feature

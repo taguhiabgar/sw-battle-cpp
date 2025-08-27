@@ -6,13 +6,10 @@
 #include "IO/Commands/March.hpp"
 #include "IO/Commands/SpawnHunter.hpp"
 #include "IO/Commands/SpawnSwordsman.hpp"
+#include "IO/Events/UnitSpawned.hpp"
 #include "IO/Events/MapCreated.hpp"
 #include "IO/Events/MarchEnded.hpp"
 #include "IO/Events/MarchStarted.hpp"
-#include "IO/Events/UnitAttacked.hpp"
-#include "IO/Events/UnitDied.hpp"
-#include "IO/Events/UnitMoved.hpp"
-#include "IO/Events/UnitSpawned.hpp"
 #include "IO/System/PrintDebug.hpp"
 #include <iostream>
 #include <vector>
@@ -25,26 +22,29 @@ void Game::start()
     if (!_board.get()) {
         throw std::runtime_error("Error: Board is null");
     }
-    // while (true)
+    
+    uint32_t movableUnitsCount {0};
+    do
     {
+        movableUnitsCount = 0;
         _moveNumber++;
-        for (uint32_t& id : _moveOrder) {
+
+        for (auto it = _moveOrder.begin(); it != _moveOrder.end(); ) {
+            const uint32_t id = *it;
             Unit* unit = _board->getUnit(id);
             if (unit) {
-                unit->makeMove(*_board.get());
+                bool canMove = unit->makeMove(_moveNumber, *_board, _eventLog);
+                movableUnitsCount += canMove;
+
+                if (!unit->isAlive()) {
+                    _board->removeUnit(id);
+                    it = _moveOrder.erase(it);
+                    continue; // skip increment
+                }
             }
+            ++it;
         }
-    }
-    
-}
-
-void Game::update()
-{
-    
-}
-
-void Game::end()
-{
+    } while (movableUnitsCount != 0 || _moveOrder.empty());
     
 }
 
@@ -66,7 +66,7 @@ void Game::spawnHunter(io::SpawnHunter& command)
 {
     printDebug(std::cout, command);
     spawnUnit<sw::feature::Hunter>(command);
-    _eventLog.log(_moveNumber, io::UnitSpawned{command.unitId, "Hunter", command.x, command.y});
+    
 }
 
 void Game::march(io::March& command)
@@ -78,7 +78,7 @@ void Game::march(io::March& command)
         return;
     }
     if (auto* movable = dynamic_cast<IMovable*>(unit)) {
-        movable->move(command.targetX, command.targetY);
+        movable->startMarch(command.targetX, command.targetY);
         _eventLog.log(_moveNumber, io::MarchStarted{command.unitId, pos->x, pos->y, command.targetX, command.targetY});
     }
 }

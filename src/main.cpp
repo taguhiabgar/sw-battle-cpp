@@ -50,6 +50,7 @@ int main(int argc, char** argv)
 
 	EventLog eventLog;
     
+	std::cout << std::endl << "-- MAIN --" << std::endl << std::endl;
 	eventLog.log(1, io::MapCreated{10, 10});
 	eventLog.log(1, io::UnitSpawned{1, "Swordsman", 0, 0});
 	eventLog.log(1, io::UnitSpawned{2, "Hunter", 9, 0});

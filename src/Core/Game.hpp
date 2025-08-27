@@ -23,8 +23,6 @@ namespace sw::core
         ~Game() = default;
 
         void start();
-        void update();
-        void end();
 
         template<typename UnitType, typename CommandType>
         void spawnUnit(const CommandType& command)
