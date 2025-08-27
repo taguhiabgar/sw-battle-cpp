@@ -7,20 +7,19 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <optional>
 #include <cstdint>
 #include <cassert>
 
 namespace sw::core {
 
-    using sw::core::Unit;
-
     class Board
     {
-    
     public:
         Board(io::CreateMap command)
             : _width(command.width), _height(command.height), 
             ground(std::vector<std::vector<uint32_t>>(_width, std::vector<uint32_t>(_height, InvalidId))) {}
+
         ~Board() = default;
 
         uint32_t storeUnit(std::unique_ptr<Unit> u, Position position) {
@@ -42,11 +41,9 @@ namespace sw::core {
             return nullptr;
         }
 
+        std::optional<Position> getUnitPosition(uint32_t id);
+
         Unit* getUnit(Position position);
-
-        Position getTopLeftPosition(Position position, uint32_t radius);
-
-        Position getBottomRightPosition(Position position, uint32_t radius);
 
         Unit* getAnyNeighbor(Position position, uint32_t fromDistance, uint32_t toDistance);
 
@@ -65,6 +62,10 @@ namespace sw::core {
         static constexpr uint32_t InvalidId {0};
 
     private:
+        Position getTopLeftPosition(Position position, uint32_t radius);
+
+        Position getBottomRightPosition(Position position, uint32_t radius);    
+
         struct UnitData {
             std::unique_ptr<Unit> unit;
             Position pos;

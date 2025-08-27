@@ -12,6 +12,13 @@ namespace sw::core {
         return nullptr;
     }
 
+    std::optional<Position> Board::getUnitPosition(uint32_t id) {
+        if (auto it = units.find(id); it != units.end()) {
+            return it->second.pos;
+        }
+        return std::nullopt;
+    }
+
     Position Board::getTopLeftPosition(Position position, uint32_t radius) {
         Position topLeft {0, 0};
         if (position.x >= radius) {
